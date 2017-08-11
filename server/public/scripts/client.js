@@ -28,13 +28,25 @@ $(document).ready(function () {
     saveKoala(objectToSend);
   }); //end addButton on click
 
-  $('#viewKoalas').on('click', '.changeStatus', function() {
+  $('#viewKoalas').on('click', '.deleteKoala', function () {
+    var rowId = $(this).parent().parent().data().id;
+    $.ajax({
+      method: 'DELETE',
+      url: '/koalas/' + rowId,
+      success: function (response) {
+        getKoalas();
+      }
+    })
+
+  });
+
+  $('#viewKoalas').on('click', '.changeStatus', function () {
     var rowId = $(this).parent().parent().data().id;
     console.log(rowId);
-    $.ajax ({
+    $.ajax({
       type: 'PUT',
       url: '/koalas/' + rowId,
-      success: function(response) {
+      success: function (response) {
         getKoalas();
       }
     })
@@ -80,7 +92,7 @@ function showKoalas(koalas) {
   $('#viewKoalas').empty();
   for (var i = 0; i < koalas.length; i++) {
     var koala = koalas[i];
-    var $koalaRow = '<tr><td>' + koala.name + '</td><td>' + koala.age + '</td><td>' + koala.gender + '</td><td>' + koala.ready_for_transfer + '</td><td>' + koala.notes + '</td>';
+    var $koalaRow = '<tr><td>' + koala.name + '</td><td>' + koala.age + '</td><td>' + koala.gender + '</td><td>' + koala.ready_for_transfer + '</td><td>' + koala.notes + '</td><td><button class = "deleteKoala">Delete</button></td>';
     if (koala.ready_for_transfer == "N") {
       $koalaRow += '<td><button class="changeStatus">Ready for Transfer</button></td></tr>';
     } else {

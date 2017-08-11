@@ -66,5 +66,25 @@ router.put('/:id', function (req, res) {
     })
 });
 
+router.delete('/:id', function (req, res) {
+    var koalaId = req.params.id;
+    pool.connect(function (errorConnectingToDatabase, client, done) {
+        if (errorConnectingToDatabase) {
+            console.log('error connecting to the database', errorConnectingToDatabase);
+            res.send(500);
+        } else {
+            client.query("DELETE FROM koalas WHERE id=$1",[koalaId], function (errorMakingQuery, result) {
+                done();
+                if (errorMakingQuery) {
+                    console.log('error making query', errorMakingQuery)
+                    res.send(500)
+                } else {
+                    res.sendStatus(200);
+                }
+            })
+        }
+    })
+});
+
 
 module.exports = router;
