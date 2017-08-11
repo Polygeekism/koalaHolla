@@ -96,7 +96,7 @@ function showKoalas(koalas) {
     if (koala.ready_for_transfer == "N") {
       $koalaRow += '<td><button class="changeStatus">Ready for Transfer</button></td></tr>';
     } else {
-      $koalaRow += '</tr>';
+      $koalaRow += '<td></td></tr>';
     }
     $koalaRow = $($koalaRow);
     console.log($koalaRow);

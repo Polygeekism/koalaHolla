@@ -5,7 +5,7 @@
     <title>Koalla Holla</title>
     <script src="vendors/jquery-3.0.0.min.js" charset="utf-8"></script>
     <script src="scripts/client.js" charset="utf-8"></script>
-    <link rel="stylesheet" href="views/styles.css">
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <img src="images/icon.png" />
@@ -23,7 +23,7 @@
     </div>
     <div>
       <h2>All Koalas</h2>
-      <table>
+      <table id ='koalaTable'>
         <thead>
           <tr>
             <th>Name</th>
@@ -31,8 +31,8 @@
             <th>Gender</th>
             <th>Ready for Transfer</th>
             <th>Notes</th>
-            <th></th>
-            <th></th>
+            <th>Delete</th>
+            <th>Update Transfer</th>
           </tr>
         </thead>
         <tbody id="viewKoalas">
