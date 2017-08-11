@@ -33,7 +33,7 @@ $(document).ready(function () {
     console.log(rowId);
     $.ajax ({
       type: 'PUT',
-      url: '/koalas',
+      url: '/koalas/' + rowId,
       success: function(response) {
         getKoalas();
       }

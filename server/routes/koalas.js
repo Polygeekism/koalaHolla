@@ -30,30 +30,41 @@ router.post('/', function (req, res) {
             console.log('error connecting to the database', errorConnectingToDatabase);
             res.sendStatus(500);
         } else {
-            client.query('INSERT INTO koalas ( name, gender, age, ready_for_transfer, notes) VALUES ($1, $2, $3, $4, $5)',[req.body.name, req.body.gender, req.body.age, req.body.readyForTransfer, req.body.notes], function (errorMakingQuery, result) {
+            client.query('INSERT INTO koalas ( name, gender, age, ready_for_transfer, notes) VALUES ($1, $2, $3, $4, $5)', [req.body.name, req.body.gender, req.body.age, req.body.readyForTransfer, req.body.notes], function (errorMakingQuery, result) {
                 done();
-                    if (errorMakingQuery) {
-                        console.log('error making query', errorMakingQuery);
-                        res.sendStatus(500);
-                    } else {
-                        res.sendStatus(200);
-                    }
-                })
+                if (errorMakingQuery) {
+                    console.log('error making query', errorMakingQuery);
+                    res.sendStatus(500);
+                } else {
+                    res.sendStatus(200);
+                }
+            })
         }
 
     })
 
 });
-/*
-router.put('/', function (req, res){
+
+router.put('/:id', function (req, res) {
+    var koalaId = req.params.id;
     console.log('put route hit')
     pool.connect(function (errorConnectingToDatabase, client, done) {
         if (errorConnectingToDatabase) {
             console.log('error connecting to the database', errorConnectingToDatabase);
             res.sendStatus(500);
         } else {
-            client.query('UPDATE ')
-})
-*/
+            client.query("UPDATE koalas SET ready_for_transfer = 'Y' WHERE id = $1;", [koalaId], function (errorMakingQuery, result) {
+                done();
+                if (errorMakingQuery) {
+                    console.log('error making query', errorMakingQuery);
+                    res.sendStatus(500);
+                } else {
+                    res.sendStatus(200);
+                }
+            })
+        }
+    })
+});
+
 
 module.exports = router;
