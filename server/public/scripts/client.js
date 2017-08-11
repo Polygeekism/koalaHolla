@@ -11,13 +11,19 @@ $(document).ready(function () {
     // get user input and put in an object
     // NOT WORKING YET :(
     // using a test object
+    newName = $('#nameIn').val();
+    newAge = $('#ageIn').val();
+    newGender = $('#genderIn').val();
+    newStatus = $('#readyForTransferIn').val();
+    newNotes = $('#notesIn').val();
     var objectToSend = {
-      name: 'Johnny',
-      age: 5,
-      gender: 'M',
-      readyForTransfer: 'Y',
-      notes: 'testName',
+      name: newName,
+      age: newAge,
+      gender: newGender,
+      readyForTransfer: newStatus,
+      notes: newNotes
     };
+    console.log(objectToSend);
     // call saveKoala with the new obejct
     saveKoala(objectToSend);
   }); //end addButton on click
@@ -47,6 +53,11 @@ function saveKoala(newKoala) {
     success: function (data) {
       console.log('got some koalas: ', data);
       getKoalas();
+      $('#nameIn').val('');
+      $('#ageIn').val('');
+      $('#genderIn').val('');
+      $('#readyForTransferIn').val('');
+      $('#notesIn').val('');
     } // end success
   }); //end ajax
 }
@@ -55,7 +66,13 @@ function showKoalas(koalas) {
   $('#viewKoalas').empty();
   for (var i = 0; i < koalas.length; i++) {
     var koala = koalas[i];
-    $('#viewKoalas').append('<tr><td>' + koala.name + '</td><td>' + koala.age + '</td><td>' +
-      koala.gender + '</td><td>' + koala.ready_for_transfer + '</td><td>' + koala.notes + '</td></tr>');
+    var $koalaRow = '<tr><td>' + koala.name + '</td><td>' + koala.age + '</td><td>' + koala.gender + '</td><td>' + koala.ready_for_transfer + '</td><td>' + koala.notes + '</td>';
+    if (koala.ready_for_transfer == "N") {
+      $koalaRow += '<td><button class="change status">Ready for Transfer</button></td></tr>';
+    } else {
+      $koalaRow += '</tr>';
+    }
+    console.log($koalaRow);
+    $('#viewKoalas').append($koalaRow);
   }
 }
