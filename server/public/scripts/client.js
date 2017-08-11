@@ -12,10 +12,10 @@ $(document).ready(function () {
     // NOT WORKING YET :(
     // using a test object
     var objectToSend = {
-      name: 'testName',
-      age: 'testName',
-      gender: 'testName',
-      readyForTransfer: 'testName',
+      name: 'Johnny',
+      age: 5,
+      gender: 'M',
+      readyForTransfer: 'Y',
       notes: 'testName',
     };
     // call saveKoala with the new obejct
@@ -46,11 +46,13 @@ function saveKoala(newKoala) {
     data: newKoala,
     success: function (data) {
       console.log('got some koalas: ', data);
+      getKoalas();
     } // end success
   }); //end ajax
 }
 
 function showKoalas(koalas) {
+  $('#viewKoalas').empty();
   for (var i = 0; i < koalas.length; i++) {
     var koala = koalas[i];
     $('#viewKoalas').append('<tr><td>' + koala.name + '</td><td>' + koala.age + '</td><td>' +
