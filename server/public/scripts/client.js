@@ -27,7 +27,21 @@ $(document).ready(function () {
     // call saveKoala with the new obejct
     saveKoala(objectToSend);
   }); //end addButton on click
+
+  $('#viewKoalas').on('click', '.changeStatus', function() {
+    var rowId = $(this).parent().parent().data().id;
+    console.log(rowId);
+    $.ajax ({
+      type: 'PUT',
+      url: '/koalas',
+      success: function(response) {
+        getKoalas();
+      }
+    })
+  });
 }); // end doc ready
+
+
 
 function getKoalas() {
   console.log('in getKoalas');
@@ -68,11 +82,15 @@ function showKoalas(koalas) {
     var koala = koalas[i];
     var $koalaRow = '<tr><td>' + koala.name + '</td><td>' + koala.age + '</td><td>' + koala.gender + '</td><td>' + koala.ready_for_transfer + '</td><td>' + koala.notes + '</td>';
     if (koala.ready_for_transfer == "N") {
-      $koalaRow += '<td><button class="change status">Ready for Transfer</button></td></tr>';
+      $koalaRow += '<td><button class="changeStatus">Ready for Transfer</button></td></tr>';
     } else {
       $koalaRow += '</tr>';
     }
+    $koalaRow = $($koalaRow);
     console.log($koalaRow);
+    console.log(koala.id);
+    $koalaRow.data('id', koala.id);
+    console.log('data for koala ID is', $koalaRow.data('id'));
     $('#viewKoalas').append($koalaRow);
   }
 }

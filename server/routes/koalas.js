@@ -44,6 +44,16 @@ router.post('/', function (req, res) {
     })
 
 });
-
+/*
+router.put('/', function (req, res){
+    console.log('put route hit')
+    pool.connect(function (errorConnectingToDatabase, client, done) {
+        if (errorConnectingToDatabase) {
+            console.log('error connecting to the database', errorConnectingToDatabase);
+            res.sendStatus(500);
+        } else {
+            client.query('UPDATE ')
+})
+*/
 
 module.exports = router;
